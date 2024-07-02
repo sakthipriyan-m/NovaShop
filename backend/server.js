@@ -10,6 +10,10 @@ connectDB();
 const PORT = process.env.PORT || 5050;
 const app = express();
 
+//Body Parser middleware
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
 app.get('/', (req, res)=> {
     res.send('API is running....');
 });
