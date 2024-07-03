@@ -1,6 +1,7 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
+import generateToken from "../utils/generateToken.js";
 
 // @desc    Auth user and get token
 // @route   POST /api/users/login
@@ -11,20 +12,11 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email: email });
 
   if (user && (await user.matchPassword(password))) {
-    const token = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET, {
-      expiresIn: "30d",
-    });
-
-    //Set JWT as HTTP-Only
-    res.cookie("jwt", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV !== "development",
-      sameSite: "strict",
-      maxAge: 30 * 24 * 60 * 60 * 1000, //30days
-    });
+    generateToken(res, user.userId);
     res.json({
-      _id: user._id,
-      name: user.firstName,
+      id: user._id,
+      firstName: user.firstName,
+      lastName: user.lastName,
       email: user.email,
       userId: user.userId,
       isAdmin: user.isAdmin,
@@ -39,7 +31,40 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  res.send("register user");
+  const { firstName, lastName, email, password } = req.body;
+
+  const userExists = await User.findOne({ email: email });
+  if (userExists) {
+    res.status(400);
+    throw new Error("User already exists");
+  }
+  // Find the highest userId in the database and increment it
+  const lastUser = await User.findOne().sort({ userId: -1 });
+  const newUserId = lastUser
+    ? (parseInt(lastUser.userId) + 1).toString()
+    : "2000001";
+
+  const user = await User.create({
+    firstName,
+    lastName,
+    email,
+    password,
+    userId: newUserId,
+  });
+
+  if (user) {
+    generateToken(res, user.userId)
+    res.status(201).json({
+      _id: user._id,
+      userId: user.userId,
+      fistname: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    throw new Error("Invalid user data");
+  }
 });
 
 // @desc    Logout user and clear cookie
