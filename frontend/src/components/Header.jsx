@@ -26,7 +26,7 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <header className="fixed-top">
       <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
