@@ -8,16 +8,16 @@ import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <>
+    <div className="d-flex flex-column min-vh-100">
       <Header />
-      <main className="py-3">
+      <main className="flex-grow-1 py-3 mt-5">
         <Container>
           <Outlet />
         </Container>
-        <Footer />
-        <ToastContainer />
       </main>
-    </>
+      <Footer />
+      <ToastContainer />
+    </div>
   );
 };
 
