@@ -10,16 +10,18 @@ import reportWebVitals from './reportWebVitals';
 import Homepage from './pages/Homepage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import CartPage from './pages/CartPage';
+import LoginPage from './pages/LoginPage';
 
-const router =createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App />}>
-    <Route index={true} path='/' element={<Homepage />} />
-    <Route path='/product/:id' element={<ProductDetailsPage />} />
-    <Route path='/cart' element={<CartPage />} />
+    <Route path="/" element={<App />}>
+      <Route index={true} path="/" element={<Homepage />} />
+      <Route path="/product/:id" element={<ProductDetailsPage />} />
+      <Route path="/cart" element={<CartPage />} />
+      <Route path="/login" element={<LoginPage />} />
     </Route>
   )
-)
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
