@@ -2,8 +2,6 @@ import { Nav } from "react-bootstrap";
 
 const CheckoutProgressTracker = ({ shipping, payment, review }) => {
   return (
-    <div className="text-center mb-4">
-      <h4 className="mb-3">Checkout</h4>
       <Nav className="justify-content-center mb-4">
         <Nav.Item>
           {shipping ? (
@@ -47,7 +45,6 @@ const CheckoutProgressTracker = ({ shipping, payment, review }) => {
           )}
         </Nav.Item>
       </Nav>
-    </div>
   );
 };
 
