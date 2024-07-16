@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.custom-radio .form-check-input:checked {
+  background-color: black;
+  border-color: black;
+}

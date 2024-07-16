@@ -1,6 +1,6 @@
 import { Nav } from "react-bootstrap";
 
-const CheckoutProgressTracker = ({ shipping, payment, review }) => {
+const CheckoutProgressTracker = ({ shipping, reviewOrder }) => {
   return (
       <Nav className="justify-content-center mb-4">
         <Nav.Item>
@@ -18,30 +18,17 @@ const CheckoutProgressTracker = ({ shipping, payment, review }) => {
           )}
         </Nav.Item>
         <Nav.Item>
-          {payment ? (
+          {reviewOrder ? (
             <Nav.Link
               href="/payment"
               style={{ color: "black", fontWeight: "bold", cursor: "default" }}
               variant="dark"
               disabled
             >
-              Payment
+              Review Order
             </Nav.Link>
           ) : (
-            <Nav.Link disabled>Payment</Nav.Link>
-          )}
-        </Nav.Item>
-        <Nav.Item>
-          {review ? (
-            <Nav.Link
-              href="/review"
-              style={{ color: "black", fontWeight: "bold", cursor: "default"}}
-              variant="dark"
-            >
-              Review
-            </Nav.Link>
-          ) : (
-            <Nav.Link disabled>Review</Nav.Link>
+            <Nav.Link disabled>Review Order</Nav.Link>
           )}
         </Nav.Item>
       </Nav>
