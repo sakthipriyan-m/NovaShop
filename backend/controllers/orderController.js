@@ -41,7 +41,7 @@ const createOrder = asyncHandler(async (req, res) => {
       orderItems: cartItems.map((x) => ({
         ...x,
         productId: x.id,
-        priceInfo: x.priceInfo,
+        priceInfo: x.listPrice,
         createdBy: x.createdBy.id,
         _id: undefined,
       })),
