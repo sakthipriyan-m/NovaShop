@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import {Row, Col, Image, ListGroup, Card, Button, Alert } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import Rating from "../components/Rating";
-import Loader from "../components/Loader";
+import Loader from "../components/Loader/Loader";
 import Message from "../components/Message";
 import { useGetProductDetailsQuery } from "../slices/productsApiSlice";
 import { addToCart } from "../slices/cartSlice";
