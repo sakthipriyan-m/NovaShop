@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,8 +6,10 @@ import CheckoutProgressTracker from "../components/CheckoutProgressTracker";
 import Message from "../components/Message";
 import CartSummary from "../components/CartSummary";
 import Payment from "../components/Payment";
+import Loader from "../components/Loader";
 
 const OrderReviewPage = () => {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,6 +22,7 @@ const OrderReviewPage = () => {
 
   return (
     <>
+      {loading && <Loader />}
       <CheckoutProgressTracker reviewOrder />
       <Row>
         <Col md={8}>
@@ -95,7 +98,7 @@ const OrderReviewPage = () => {
           </Card>
         </Col>
         <Col md={4}>
-          <CartSummary reviewOrder />
+          <CartSummary reviewOrder setLoading={setLoading}/>
         </Col>
       </Row>
     </>

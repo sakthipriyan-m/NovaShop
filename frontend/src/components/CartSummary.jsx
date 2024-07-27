@@ -1,9 +1,9 @@
-import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Card, ListGroup, Button } from "react-bootstrap";
+import PlaceOrderButton from "./PlaceOrderButton";
 
-const CartSummary = ({ showShippingPrice, onSubmit, reviewOrder }) => {
+const CartSummary = ({ showShippingPrice, onSubmit, reviewOrder, setLoading  }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -85,14 +85,7 @@ const CartSummary = ({ showShippingPrice, onSubmit, reviewOrder }) => {
         )}
         <ListGroup.Item style={{ display: "grid" }}>
           {reviewOrder ? (
-            <Button
-              type="button"
-              className="btn-block mt-2"
-              variant="dark"
-              disabled={!paymentMethod}
-            >
-              Place Order
-            </Button>
+            <PlaceOrderButton onClick={onSubmit} disabled={!paymentMethod} setLoading={setLoading} />
           ) : (
             <Button
               type="button"

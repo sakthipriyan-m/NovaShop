@@ -25,6 +25,7 @@ const createOrder = asyncHandler(async (req, res) => {
     cartItems,
     shippingAddress,
     paymentMethod,
+    paymentResult,
     itemsPrice,
     taxPrice,
     shippingPrice,
@@ -36,6 +37,7 @@ const createOrder = asyncHandler(async (req, res) => {
     throw new Error("No order items");
   } else {
     const orderId = await generateNextOrderId();
+    const isPaid = paymentResult?.created && paymentResult?.type === 'card' ? true : false;
     const newOrder = new Order({
       orderId,
       orderItems: cartItems.map((x) => ({
@@ -48,10 +50,13 @@ const createOrder = asyncHandler(async (req, res) => {
       user: req.user.userId,
       shippingAddress,
       paymentMethod,
+      paymentResult,
       itemsPrice,
       taxPrice,
       shippingPrice,
       totalPrice,
+      isPaid,
+
     });
 
     const createdOrder = await newOrder.save();

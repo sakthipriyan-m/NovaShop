@@ -16,3 +16,7 @@ code {
   background-color: black;
   border-color: black;
 }
+.place-order-button {
+  height: 45px;
+  width: 100%;
+}

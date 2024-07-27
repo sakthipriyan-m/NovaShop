@@ -31,11 +31,11 @@ const Payment = () => {
         <Form.Check
           type="radio"
           className="my-2 custom-radio"
-          label="PayPal or Credit Card"
-          id="PayPal"
+          label="Debit or Credit Card"
+          id="Card"
           name="paymentMethod"
-          value="PayPal"
-          checked={selectedPaymentMethod === "PayPal"}
+          value="Card"
+          checked={selectedPaymentMethod === "Card"}
           onChange={handlePaymentMethodChange}
         ></Form.Check>
         <Form.Check
