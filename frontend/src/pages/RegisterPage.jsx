@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import FormContainer from "../components/FormContainer";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
+import Loader from "../components/Loader/Loader";
 import { useRegisterMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/loginSlice";
 import { toast } from "react-toastify";

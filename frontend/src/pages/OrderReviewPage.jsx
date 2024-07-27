@@ -6,7 +6,7 @@ import CheckoutProgressTracker from "../components/CheckoutProgressTracker";
 import Message from "../components/Message";
 import CartSummary from "../components/CartSummary";
 import Payment from "../components/Payment";
-import Loader from "../components/Loader";
+import Loader from "../components/Loader/Loader";
 
 const OrderReviewPage = () => {
   const [loading, setLoading] = useState(false);
