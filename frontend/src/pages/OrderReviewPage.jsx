@@ -17,7 +17,7 @@ const OrderReviewPage = () => {
   const { cartItems, shippingAddress, paymentMethod } = cart;
 
   const handleBackToShipping = () => {
-    navigate("/shipping");
+    navigate("/login?redirect=/shipping");
   };
 
   return (

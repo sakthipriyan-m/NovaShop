@@ -28,7 +28,7 @@ const PlaceOrderButton = ({ disabled, setLoading }) => {
         paymentResult,
       }).unwrap();
       dispatch(clearCartItems());
-      navigate(`/order/${response.orderId}`);
+      navigate(`/login?redirect=/order-confirmation/${response.orderId}`);
       toast.success(`${response.orderId} is Placed Successfully`);
     } catch (error) {
       toast.error("Failed to place order. Please try again.");

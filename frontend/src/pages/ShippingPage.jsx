@@ -41,7 +41,7 @@ const ShippingPage = () => {
       setValidated(true);
     } else {
       dispatch(saveShippingAddress({ name, phoneNumber: phoneNumber, address, address2, city, state, postalCode, country }));
-      navigate("/review-order");
+      navigate("/login?redirect=/review-order");
     }
   };
 
