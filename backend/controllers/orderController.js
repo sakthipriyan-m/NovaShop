@@ -1,6 +1,10 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import Order from "../models/orderModel.js";
 import User from "../models/userModel.js";
+import dotenv from "dotenv";
+import stripe from "stripe";
+dotenv.config();
+const stripeClient = stripe(process.env.STRIPE_SECRET_KEY);
 
 
 const generateNextOrderId = async () => {
@@ -37,7 +41,7 @@ const createOrder = asyncHandler(async (req, res) => {
     throw new Error("No order items");
   } else {
     const orderId = await generateNextOrderId();
-    const isPaid = paymentResult?.created && paymentResult?.type === 'card' ? true : false;
+    const isPaid = paymentResult?.success ? true : false;
     const newOrder = new Order({
       orderId,
       orderItems: cartItems.map((x) => ({
@@ -61,6 +65,30 @@ const createOrder = asyncHandler(async (req, res) => {
 
     const createdOrder = await newOrder.save();
     res.status(201).json(createdOrder);
+  }
+});
+
+// @desc    Verify Payment
+// @route   POST /api/orders/verify-payment
+// @access  Private
+const verifyPayment = asyncHandler(async (req, res) => {
+  const { token, amount } = req.body;
+
+  try {
+    const charge = await stripeClient.charges.create({
+      amount: parseInt(amount * 100),
+      currency: "INR",
+      source: token.id,
+      description: "Order Payment",
+    });
+
+    if (charge.status === "succeeded") {
+      res.status(200).json({ success: true, charge });
+    } else {
+      res.status(400).json({ success: false, message: "Payment failed" });
+    }
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
   }
 });
 
@@ -119,4 +147,5 @@ export {
   updateOrderToPaid,
   updateOrderToDelivered,
   getOrders,
+  verifyPayment,
 };

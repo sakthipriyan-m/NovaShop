@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { useCreateOrderMutation } from "../slices/orderApiSlice";
+import { useCreateOrderMutation, useVerifyPaymentMutation } from "../slices/orderApiSlice";
 import { clearCartItems, savePaymentMethod } from "../slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ const PlaceOrderButton = ({ disabled, setLoading }) => {
   const dispatch = useDispatch();
 
   const [createOrder] = useCreateOrderMutation();
+  const [verifyPayment] = useVerifyPaymentMutation();
 
   const placeOrderHandler = async (paymentResult) => {
     setLoading(true);
@@ -46,20 +47,23 @@ const PlaceOrderButton = ({ disabled, setLoading }) => {
   const onToken = async (token) => {
     setLoading(true);
     try {
-      const paymentResult = {
-        id: token.id,
-        email: token.email,
-        created: token.created,
-        liveMode: token.livemode,
-        type: token.type,
+      const paymentData = {
+        token,
         amount: cart.totalPrice,
-        currency: "INR",
       };
+        // Verifying payment
+      const verificationResult = await verifyPayment(paymentData).unwrap();
 
-      handlePaymentSuccess(paymentResult);
+      if (verificationResult.success) {
+        handlePaymentSuccess(verificationResult);
+      } else {
+        throw new Error(verificationResult.message || "Payment verification failed. Try again.");
+      }
     } catch (error) {
-      toast.error("Payment failed. Try again..");
-    } 
+      toast.error(error.data.message || "Payment failed. Try again.");
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <>

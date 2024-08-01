@@ -16,7 +16,14 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    verifyPayment: builder.mutation({
+      query: (paymentData) => ({
+        url: `${ORDERS_URL}/verify-payment`,
+        method: "POST",
+        body: { ...paymentData },
+      }),
+    }),
   }),
 });
 
-export const { useCreateOrderMutation, useGetOrderQuery } = orderApiSlice;
+export const { useCreateOrderMutation, useGetOrderQuery, useVerifyPaymentMutation } = orderApiSlice;
