@@ -1,5 +1,5 @@
 import { apiSlice } from "./apiSlice";
-import { ORDERS_URL } from "../constants";
+import { ORDERS_URL, ORDER_URL } from "../constants";
 
 export const orderApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -15,6 +15,7 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         url: `${ORDERS_URL}/${orderId}`,
         method: "GET",
       }),
+      keepUnusedDataFor: 5,
     }),
     verifyPayment: builder.mutation({
       query: (paymentData) => ({
@@ -26,4 +27,8 @@ export const orderApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useCreateOrderMutation, useGetOrderQuery, useVerifyPaymentMutation } = orderApiSlice;
+export const {
+  useCreateOrderMutation,
+  useGetOrderQuery,
+  useVerifyPaymentMutation,
+} = orderApiSlice;

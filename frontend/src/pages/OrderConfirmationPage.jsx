@@ -5,12 +5,11 @@ import { Link, useParams } from "react-router-dom";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
-import { toast } from "react-toastify";
 import "./Styles.css";
 
 const OrderConfirmationPage = () => {
   const { orderId } = useParams(); // Extract orderId from URL params
-  const { data: order, isLoading, error } = useGetOrderQuery(orderId);
+  const { data: order, isLoading } = useGetOrderQuery(orderId);
   const { userInfo } = useSelector((state) => state.login);
   const navigate = useNavigate();
 

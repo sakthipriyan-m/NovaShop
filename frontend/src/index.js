@@ -16,6 +16,7 @@ import ShippingPage from './pages/ShippingPage';
 import PrivateRoute from './components/PrivateRoute';
 import OrderReviewPage from './pages/OrderReviewPage';
 import OrderConfirmationPage from './pages/OrderConfirmationPage';
+import OrderDetailsPage from './pages/OrderDetailsPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
       <Route path="/shipping" element={<ShippingPage />} />
       <Route path="/review-order" element={<OrderReviewPage />} />
       <Route path="/order-confirmation/:orderId" element={<OrderConfirmationPage />} />
+      <Route path="/order/:id" element={<OrderDetailsPage />} />
       </Route>
     </Route>
   )

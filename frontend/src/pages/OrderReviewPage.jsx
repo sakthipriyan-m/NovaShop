@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import CheckoutProgressTracker from "../components/CheckoutProgressTracker";
@@ -10,11 +10,10 @@ import Loader from "../components/Loader/Loader";
 
 const OrderReviewPage = () => {
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const cart = useSelector((state) => state.cart);
-  const { cartItems, shippingAddress, paymentMethod } = cart;
+  const { cartItems, shippingAddress } = cart;
 
   const handleBackToShipping = () => {
     navigate("/login?redirect=/shipping");
