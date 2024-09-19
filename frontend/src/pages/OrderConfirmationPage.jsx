@@ -29,8 +29,7 @@ const OrderConfirmationPage = () => {
       <Row className="justify-content-center mb-4">
         <Col xs="auto">
           <img
-            title="transaction_successful.gif"
-            src="https://salesport.in/sakhi/static/img/png/success.gif"
+            src="/images/7efs.gif"
             alt="Success"
             className="success-gif"
             draggable="false"
